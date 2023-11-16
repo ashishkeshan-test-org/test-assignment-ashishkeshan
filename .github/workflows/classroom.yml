@@ -1,0 +1,32 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom-staging[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Shout Test
+      id: shout-test
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Shout Test
+        command: "./bin/shout"
+        input: hello
+        expected-output: HELLO
+        comparison-method: exact
+        timeout: 10
+        max-score: 100
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        SHOUT-TEST_RESULTS: "${{steps.shout-test.outputs.result}}"
+      with:
+        runners: shout-test
