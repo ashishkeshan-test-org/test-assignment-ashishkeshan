@@ -7,7 +7,7 @@ permissions:
   actions: read
   contents: read
 jobs:
-  run-tests:
+  autograding:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom-staging[bot]'
     steps:
