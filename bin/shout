@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Read input from stdin using cat
+input=$(cat)
+
+# Convert input to uppercase
+uppercase=$(echo "$input" | tr '[:lower:]' '[:upper:]')
+
+# Display the result
+echo "$uppercase"
